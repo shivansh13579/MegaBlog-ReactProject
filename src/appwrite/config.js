@@ -5,6 +5,7 @@ export class Service{
     client = new Client();
     databases;
     bucket;
+
     constructor(){
         this.client
         .setEndpoint(conf.appwriteUrl)
@@ -73,12 +74,14 @@ export class Service{
             )
         } catch (error) {
             console.log("Appwrite Service:: getPost::error",error);
+            return false
         }
     }
 
     async getPost(queries = [Query.equal("status","active")]){
         try {
             return await this.databases.listDocuments(
+                
                 conf.appwriteCollectionId,
                 conf.appwriteDatabaseId,
                 queries,
